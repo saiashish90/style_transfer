@@ -16,7 +16,7 @@ import time
 
 cImPath = '/Users/Shared/sai/Desktop/style_transfer/base.jpg'
 sImPath = '/Users/Shared/sai/Desktop/style_transfer/pew.png'
-genImOutputPath = '/Users/Shared/sai/Desktop/style_transfer/'
+genImOutputPath = '/Users/Shared/sai/Desktop/style_transfer/image.png'
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##
 ## Image processing
@@ -124,7 +124,7 @@ def reprocess_array(x):
 def save_original_size(x, target_size=cImageSizeOrig):
     xIm = Image.fromarray(x)
     xIm = xIm.resize(target_size)
-    xIm.save(genImOutputPath)
+    xIm.save(genImOutputPath,format='PNG')
     return xIm
 
 tf_session = K.get_session()
@@ -144,7 +144,7 @@ P = get_feature_reps(x=cImArr, layer_names=[cLayerName], model=cModel)[0]
 As = get_feature_reps(x=sImArr, layer_names=sLayerNames, model=sModel)
 ws = np.ones(len(sLayerNames))/float(len(sLayerNames))
 
-iterations = 10
+iterations = 1
 x_val = gIm0.flatten()
 start = time.time()
 xopt, f_val, info= fmin_l_bfgs_b(calculate_loss, x_val, fprime=get_grad,
